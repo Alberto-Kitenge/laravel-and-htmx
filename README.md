@@ -15,18 +15,30 @@ Un projet starter moderne combinant Laravel 12, HTMX et Tailwind CSS pour créer
 
 ## 🛠️ Stack technique
 
+<div align="center">
+
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![HTMX](https://img.shields.io/badge/HTMX-3D72D7?style=for-the-badge&logo=htmx&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
+</div>
+
 - **Backend** : Laravel 12 (PHP 8.2+)
 - **Frontend** : HTMX 1.9.10 + Tailwind CSS 4.0
-- **Base de données** : SQLite (par défaut)
+- **Base de données** : WampServer + MySQL (ou SQLite)
 - **Build** : Vite 6.2
 - **Testing** : PHPUnit 11.5
 
-## 📦 Prérequis
+## 📎 Prérequis
 
 - PHP 8.2 ou supérieur
 - Composer
 - Node.js et npm
-- SQLite (ou autre base de données supportée par Laravel)
+- **WampServer** (recommandé) ou MySQL installé séparément
+- SQLite (optionnel, comme alternative)
 
 ## 🚀 Installation
 
@@ -52,14 +64,52 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-5. **Créer la base de données**
+5. **Configurer la base de données**
+
+**Option A : Avec WampServer et MySQL (recommandé)**
+
+- Démarrer WampServer
+- Créer une base de données via phpMyAdmin (ex: `arcitect`)
+- Configurer le fichier `.env` :
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=arcitect
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**Option B : Avec SQLite**
 ```bash
 touch database/database.sqlite
+```
+Configurer le fichier `.env` :
+```env
+DB_CONNECTION=sqlite
 ```
 
 6. **Exécuter les migrations**
 ```bash
 php artisan migrate
+```
+
+7. **Installer HTMX**
+
+HTMX est inclus via CDN dans le layout principal (`resources/views/layouts/app.blade.php`). Aucune installation supplémentaire n'est requise.
+
+Pour vérifier ou modifier la version utilisée, consultez la balise `<script>` dans le fichier layout :
+```html
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+```
+
+Si vous souhaitez installer HTMX localement via npm :
+```bash
+npm install htmx.org
+```
+Puis importez-le dans `resources/js/app.js` :
+```javascript
+import 'htmx.org';
 ```
 
 ## 🎯 Utilisation
@@ -183,7 +233,7 @@ npm run build     # Build de production des assets
 
 ## 📝 Licence
 
-Ce projet est open-source sous licence MIT.
+Ce projet est distribué sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ## 🤝 Contribution
 
