@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 
 class ChapterController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $isHtmx = $request->hasHeader('HX-Request');
+
         $chapters = Chapter::orderBy('order')->get();
+
+        if ($isHtmx) {
+            return view('outline.chapters.fragments.chapter-list', compact('chapters'));
+        }
+
         return view('outline.chapters.index', compact('chapters'));
     }
 
@@ -63,8 +70,7 @@ class ChapterController extends Controller
         $chapter->delete();
 
         Chapter::where('order', '>', $deletedOrder)->decrement('order');
-        
+
         return redirect()->route('outline.chapters.index');
     }
-
 }

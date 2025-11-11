@@ -10,9 +10,16 @@ class CodexController extends Controller
   /**
    * Display a listing of codex entries, grouped by type.
    */
-  public function index()
+  public function index(Request $request)
   {
+    $isHtmx = $request->hasHeader('HX-Request');
+
     $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
+
+    if ($isHtmx) {
+      return view('outline.codex.fragments.codex-entry-list', compact('codexEntries'));
+    }
+
     return view('outline.codex.index', compact('codexEntries'));
   }
 
