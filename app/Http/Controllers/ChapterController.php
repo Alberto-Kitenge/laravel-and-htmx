@@ -14,10 +14,10 @@ class ChapterController extends Controller
         $chapters = Chapter::orderBy('order')->get();
 
         if ($isHtmx) {
-            return view('outline.chapters.fragments.chapter-list', compact('chapters'));
+            return view('outline.chapters.fragments.chapter-list', compact('chapters', 'isHtmx'));
         }
 
-        return view('outline.chapters.index', compact('chapters'));
+        return view('outline.chapters.index', compact('chapters', 'isHtmx'));
     }
 
     public function show(Chapter $chapter)

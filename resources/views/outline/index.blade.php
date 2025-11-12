@@ -9,6 +9,8 @@
             <div class="col-span-2" hx-get="{{ route('outline.codex.index') }}" hx-trigger="load" hx-swap="innerHTML"></div>
         </div>
 
+        <div id="swap"></div>
+
         <noscript>
             <h1 class="page-title">Outline Home</h1>
 

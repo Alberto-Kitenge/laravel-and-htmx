@@ -17,10 +17,10 @@ class CodexController extends Controller
     $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
 
     if ($isHtmx) {
-      return view('outline.codex.fragments.codex-entry-list', compact('codexEntries'));
+      return view('outline.codex.fragments.codex-entry-list', compact('codexEntries', 'isHtmx'));
     }
 
-    return view('outline.codex.index', compact('codexEntries'));
+    return view('outline.codex.index', compact('codexEntries', 'isHtmx'));
   }
 
   /**
