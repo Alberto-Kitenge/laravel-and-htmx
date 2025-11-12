@@ -1,7 +1,10 @@
 <div class="codex-list content" id="codex-list">
     <div class="flex justify-between items-center mb-8">
         <h2 class="text-xl ml-2 font-bold">Codex Entries</h2>
-        <a href="{{ route('outline.codex.create') }}" class="btn inline-block">
+        <a href="{{ route('outline.codex.create') }}" class="btn inline-block"
+            @if ($isHtmx) hx-get="{{ route('outline.codex.create') }}"
+                hx-target="#modal"
+                hx-swap="innerHTML" @endif>
             Add a New Codex Entry
         </a>
     </div>
@@ -17,7 +20,10 @@
                 <ul>
                     @foreach ($codexEntries[$type] as $entry)
                         <li class="codex-entry" id="codex-entry-{{ $entry->id }}">
-                            <a href="{{ route('outline.codex.show', $entry) }}">
+                            <a href="{{ route('outline.codex.show', $entry) }}"
+                                @if ($isHtmx) hx-get="{{ route('outline.codex.show', $entry) }}"
+                                    hx-target="#modal"
+                                    hx-swap="innerHTML" @endif>
                                 {{ $entry->name }}
                             </a>
                         </li>

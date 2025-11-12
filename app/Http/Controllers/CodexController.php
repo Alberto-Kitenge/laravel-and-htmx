@@ -24,11 +24,31 @@ class CodexController extends Controller
   }
 
   /**
+   * Display the specified codex entry.
+   */
+  public function show(Request $request, Codex $codex)
+  {
+    $isHtmx = $request->hasHeader('HX-Request');
+
+    if ($isHtmx) {
+      return view('outline.codex.fragments.codex-entry-details', compact('codex', 'isHtmx'));
+    }
+
+    return view('outline.codex.show', compact('codex', 'isHtmx'));
+  }
+
+  /**
    * Show the form for creating a new codex entry.
    */
-  public function create()
+  public function create(Request $request)
   {
-    return view('outline.codex.create');
+    $isHtmx = $request->hasHeader('HX-Request');
+
+    if ($isHtmx) {
+      return view('outline.codex.fragments.create-codex-form', compact('isHtmx'));
+    }
+
+    return view('outline.codex.create', compact('isHtmx'));
   }
 
   /**
@@ -46,14 +66,6 @@ class CodexController extends Controller
 
     return redirect()->route('outline.codex.show', $codex)
       ->with('success', 'Codex entry created successfully.');
-  }
-
-  /**
-   * Display the specified codex entry.
-   */
-  public function show(Codex $codex)
-  {
-    return view('outline.codex.show', compact('codex'));
   }
 
   /**

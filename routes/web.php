@@ -16,3 +16,8 @@ Route::prefix('outline')->name('outline.')->group(function () {
   Route::resource('codex', CodexController::class);
   Route::resource('chapters', ChapterController::class);
 });
+
+// Route du modal vide
+Route::get('/modal/empty', function () {
+  return '';
+});

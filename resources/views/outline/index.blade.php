@@ -11,6 +11,11 @@
 
         <div id="swap"></div>
 
+        <div class="modal-container" hx-get="/modal/empty" hx-trigger="click target:.modal-container" hx-target="#modal"
+            hx-swap="innerHTML">
+            <div class="modal-content" id="modal"></div>
+        </div>
+
         <noscript>
             <h1 class="page-title">Outline Home</h1>
 

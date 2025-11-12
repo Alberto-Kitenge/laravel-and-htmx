@@ -20,13 +20,25 @@ class ChapterController extends Controller
         return view('outline.chapters.index', compact('chapters', 'isHtmx'));
     }
 
-    public function show(Chapter $chapter)
+    public function show(Request $request, Chapter $chapter)
     {
-        return view('outline.chapters.show', compact('chapter'));
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+            return view('outline.chapters.fragments.chapter-details', compact('chapter', 'isHtmx'));
+        }
+
+        return view('outline.chapters.show', compact('chapter', 'isHtmx'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+            return view('outline.chapters.fragments.create-chapter-form');
+        }
+
         return view('outline.chapters.create');
     }
 
