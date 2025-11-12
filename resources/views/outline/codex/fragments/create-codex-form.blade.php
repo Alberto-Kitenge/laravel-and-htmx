@@ -1,5 +1,8 @@
 <div class="codex-create-form content">
-    <form method="POST" action="{{ route('outline.codex.store') }}">
+    <form method="POST" action="{{ route('outline.codex.store') }}"
+        @if ($isHtmx) hx-post="{{ route('outline.codex.store') }}"
+            hx-target="#codex-list"
+            hx-swap="outerHTML" @endif>
         @csrf
 
         <div class="form-group">

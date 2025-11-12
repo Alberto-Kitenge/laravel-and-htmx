@@ -36,10 +36,10 @@ class ChapterController extends Controller
         $isHtmx = $request->hasHeader('HX-Request');
 
         if ($isHtmx) {
-            return view('outline.chapters.fragments.create-chapter-form');
+            return view('outline.chapters.fragments.create-chapter-form', compact('isHtmx'));
         }
 
-        return view('outline.chapters.create');
+        return view('outline.chapters.create', compact('isHtmx'));
     }
 
     public function store(Request $request)
@@ -53,6 +53,14 @@ class ChapterController extends Controller
         $data['order'] = $nextOrder;
 
         $chapter = Chapter::create($data);
+
+        $isHtmx = $request->hasHeader('HX-Request');
+
+        if ($isHtmx) {
+            $chapters = Chapter::orderBy('order')->get();
+
+            return view('outline.chapters.fragments.chapter-list', compact('chapters', 'isHtmx'));
+        }
 
         return redirect()->route('outline.chapters.show', $chapter);
     }

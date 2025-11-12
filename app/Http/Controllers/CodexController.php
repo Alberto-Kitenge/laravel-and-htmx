@@ -64,6 +64,14 @@ class CodexController extends Controller
 
     $codex = Codex::create($data);
 
+    $isHtmx = $request->hasHeader('HX-Request');
+
+    if ($isHtmx) {
+      $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
+
+      return view('outline.codex.fragments.codex-entry-list', compact('codexEntries', 'isHtmx'));
+    }
+
     return redirect()->route('outline.codex.show', $codex)
       ->with('success', 'Codex entry created successfully.');
   }
