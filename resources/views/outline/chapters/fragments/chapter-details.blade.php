@@ -17,7 +17,10 @@
             Edit Chapter
         </a>
         <form action="{{ route('outline.chapters.destroy', $chapter) }}" method="POST" class="chapter-delete-form"
-            onsubmit="return confirm('Are you sure you want to delete this chapter?');">
+            onsubmit="return confirm('Are you sure you want to delete this chapter?');"
+            @if ($isHtmx) hx-post="{{ route('outline.chapters.destroy', $chapter) }}"
+                hx-target="#chapter-list"
+                hx-swap="outerHTML" @endif>
             @csrf
             @method('DELETE')
             <button type="submit" class="btn" title="Delete Chapter">

@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-actions">
-            <button type="submit">Create Chapter</button>
+            <button type="submit" class="btn">Create Chapter</button>
         </div>
     </form>
 </div>
