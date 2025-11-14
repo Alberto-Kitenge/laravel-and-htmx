@@ -19,7 +19,10 @@
             Edit Codex Entry
         </a>
         <form action="{{ route('outline.codex.destroy', $codex) }}" method="POST" class="codex-delete-form"
-            onsubmit="return confirm('Are you sure you want to delete this codex entry?');">
+            onsubmit="return confirm('Are you sure you want to delete this codex entry?');"
+            @if ($isHtmx) hx-post="{{ route('outline.codex.destroy', $codex) }}"
+                hx-target="#codex-list"
+                hx-swap="outerHTML" @endif>
             @csrf
             @method('DELETE')
             <button type="submit" class="btn" title="Delete Codex Entry">

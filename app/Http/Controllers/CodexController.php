@@ -69,7 +69,10 @@ class CodexController extends Controller
     if ($isHtmx) {
       $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
 
-      return view('outline.codex.fragments.codex-entry-list', compact('codexEntries', 'isHtmx'));
+      $codexListHtml = view('outline.codex.fragments.codex-entry-list', compact('codexEntries', 'isHtmx'))->render();
+      $modalHtml = view('outline.fragments.modal', compact('isHtmx'))->render();
+
+      return response($codexListHtml . $modalHtml);
     }
 
     return redirect()->route('outline.codex.show', $codex)
@@ -104,9 +107,20 @@ class CodexController extends Controller
   /**
    * Remove the specified codex entry from storage.
    */
-  public function destroy(Codex $codex)
+  public function destroy(Request $request, Codex $codex)
   {
     $codex->delete();
+
+    $isHtmx = $request->hasHeader('HX-Request');
+
+    if ($isHtmx) {
+      $codexEntries = Codex::orderBy('type')->orderBy('name')->get()->groupBy('type');
+
+      $codexListHtml = view('outline.codex.fragments.codex-entry-list', compact('codexEntries', 'isHtmx'))->render();
+      $modalHtml = view('outline.fragments.modal', compact('isHtmx'))->render();
+
+      return response($codexListHtml . $modalHtml);
+    }
 
     return redirect()->route('outline.codex.index')
       ->with('success', 'Codex entry deleted successfully.');
